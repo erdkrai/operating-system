@@ -1,0 +1,49 @@
+#include<windows.h>
+#include <bits/stdc++.h>
+using namespace std;
+char d[100]=" OPERATING SYSTEM PROJECT K1618 B44";
+int i=0,j;
+struct Processes                                     
+{                 
+	int pid;
+	int burst_time,arrival_time;
+
+};
+void wtop(Processes process[],int no_of_process,int wt[])
+{
+	for(j=0;j<48;j++)
+				{
+				cout<<"*";
+				}
+				for(j=0;j<36;j++)
+				{
+				cout<<d[j];
+				}
+				for(j=0;j<48;j++)
+				{
+				cout<<"*";
+				}
+				cout<<"\n\n\n";
+	
+	int temp[no_of_process],value=0;       
+ 	int time=0,lbt_p=0,executed=0,f_time,minimum_execution_time=5000;   
+	 																					 
+	bool flag=false;                         
+	
+	for(int x=0;x<no_of_process;x++)
+{
+	temp[x]=process[x].burst_time;              
+}
+
+	
+	while(executed!=no_of_process)              
+	{
+		
+		for(int x=0;x<no_of_process;x++)
+		{
+			
+			if((process[x].arrival_time<=time)&&(temp[x]<minimum_execution_time&&temp[x]>0))      
+			{
+				
+
+				cout<<"\n\n Process "<<process[x].pid<<" is in ready state with burst time ="<<process[x].burst_time;
