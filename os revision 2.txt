@@ -1,0 +1,42 @@
+
+				minimum_execution_time=temp[x];
+				lbt_p=x;
+				flag=true;
+				
+				
+				
+			}
+			
+		}
+		
+		if(flag==false)
+		{
+
+			time++;
+
+			continue;
+		}
+
+		value=temp[lbt_p];                
+		time=time+value;          
+
+		temp[lbt_p]=0;   
+		minimum_execution_time=5000;
+		if(temp[lbt_p]==0)
+		{
+			cout<<"\n process : "<<process[lbt_p].pid<<" executed "<<endl;
+			
+			executed++;
+			for(int i=0;i<40;i++)
+			{
+				cout<<"-";
+			}
+			cout<<"\n";
+			f_time=time+2;               
+			time=time+2;                 
+			wt[lbt_p]=f_time-process[lbt_p].burst_time-process[lbt_p].arrival_time;
+		}
+		
+		
+	}
+} 
