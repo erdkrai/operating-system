@@ -1,0 +1,36 @@
+
+void process_tat(Processes process[],int no_of_process,int wt[],int tat[])
+{   
+	for(int a=0;a<no_of_process;a++)
+	{
+		tat[a]=process[a].burst_time+wt[a];
+		 
+	}
+}
+
+void average_arrival_time(Processes process[],int no_of_process)
+{
+	int wt[no_of_process],tat[no_of_process];
+	int twt=0,total_tat=0;      
+
+	wtop(process,no_of_process,wt);
+	process_tat(process,no_of_process,wt,tat);
+	
+	cout << " | Processes |"<< " | Burst time | "<< " | Waiting time | "<< " | Turn around time | "<< " | ARRIVAL TIME | \n";
+	
+	for(int x=0;x<no_of_process;x++)
+	{
+		twt=twt+wt[x];
+		total_tat=total_tat+tat[x];
+		cout << "  " << process[x].pid << " \t\t  "<< process[x].burst_time << " \t\t   " << wt[x]<< " \t\t   " << tat[x] << " \t\t\t   " <<process[x].arrival_time << "\n";
+	}
+		for(int i=0;i<40;i++)
+			{
+				cout<<"-";
+			}
+			cout<<"\n\n";
+		cout << "\n"<<"\xB2 "<<"Average waiting time of processes : "<< (float)twt / (float)no_of_process;
+    	cout<<"\n\n";
+		
+		cout << "\n"<<"\xB2 "<<"Average turn around time of processes : "<< (float)total_tat / (float)no_of_process<<endl;
+}
