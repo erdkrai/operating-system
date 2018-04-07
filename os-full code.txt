@@ -1,0 +1,190 @@
+#include<windows.h>
+#include <bits/stdc++.h>
+using namespace std;
+char d[100]=" OPERATING SYSTEM PROJECT K1618 B44";
+int i=0,j;
+struct Processes                                     
+{                 
+	int pid;
+	int burst_time,arrival_time;
+
+};
+ 
+void wtop(Processes process[],int no_of_process,int wt[])
+{
+	for(j=0;j<48;j++)
+				{
+				cout<<"*";
+				}
+				for(j=0;j<36;j++)
+				{
+				cout<<d[j];
+				}
+				for(j=0;j<48;j++)
+				{
+				cout<<"*";
+				}
+				cout<<"\n\n\n";
+	
+	int temp[no_of_process],value=0;       
+ 	int time=0,lbt_p=0,executed=0,f_time,minimum_execution_time=5000;   
+	 																					 
+	bool flag=false;                         
+	
+	for(int x=0;x<no_of_process;x++)
+{
+	temp[x]=process[x].burst_time;              
+}
+
+	
+	while(executed!=no_of_process)              
+	{
+		
+		for(int x=0;x<no_of_process;x++)
+		{
+			
+			if((process[x].arrival_time<=time)&&(temp[x]<minimum_execution_time&&temp[x]>0))      
+			{
+				
+
+				cout<<"\n\n Process "<<process[x].pid<<" is in ready state with burst time ="<<process[x].burst_time;
+
+				minimum_execution_time=temp[x];
+				lbt_p=x;
+				flag=true;
+				
+				
+				
+			}
+			
+		}
+		
+		if(flag==false)
+		{
+
+			time++;
+
+			continue;
+		}
+
+		value=temp[lbt_p];                
+		time=time+value;          
+
+		temp[lbt_p]=0;   
+		minimum_execution_time=5000;
+		if(temp[lbt_p]==0)
+		{
+			cout<<"\n process : "<<process[lbt_p].pid<<" executed "<<endl;
+			
+			executed++;
+			for(int i=0;i<40;i++)
+			{
+				cout<<"-";
+			}
+			cout<<"\n";
+			f_time=time+2;               
+			time=time+2;                 
+			wt[lbt_p]=f_time-process[lbt_p].burst_time-process[lbt_p].arrival_time;
+		}
+		
+		
+	}
+}
+
+void process_tat(Processes process[],int no_of_process,int wt[],int tat[])
+{   
+	for(int a=0;a<no_of_process;a++)
+	{
+		tat[a]=process[a].burst_time+wt[a];
+		 
+	}
+}
+
+void average_arrival_time(Processes process[],int no_of_process)
+{
+	int wt[no_of_process],tat[no_of_process];
+	int twt=0,total_tat=0;      
+
+	wtop(process,no_of_process,wt);
+	process_tat(process,no_of_process,wt,tat);
+	
+	cout << " | Processes |"<< " | Burst Time | "<< " | Waiting Time | "<< " | Turn Around | "<< " | Arrival Time | \n";
+	
+	for(int x=0;x<no_of_process;x++)
+	{
+		twt=twt+wt[x];
+		total_tat=total_tat+tat[x];
+		cout << "  " << process[x].pid << " \t\t  "<< process[x].burst_time << " \t\t   " << wt[x]<< " \t\t   " << tat[x] << " \t\t\t   " <<process[x].arrival_time << "\n";
+	}
+		for(int i=0;i<40;i++)
+			{
+				cout<<"-";
+			}
+			cout<<"\n\n";
+		cout << "\n"<<"\xB2 "<<"Average waiting time of processes : "<< (float)twt / (float)no_of_process;
+    	cout<<"\n\n";
+		
+		cout << "\n"<<"\xB2 "<<"Average turn around time of processes : "<< (float)total_tat / (float)no_of_process<<endl;
+}
+
+
+int main()
+{  
+	string numbers[15]={" FIRST "," SECOND "," THIRD "," FOURTH "," FIFTH "," SIXTH "," SEVENTH "," EIGHT "," NINTH "," TENTH "," ELEVENTH "," TWELTH "," THIRTEENTH "," FOURTEENTH "," FIFTEENTH "};
+
+                  
+for(j=0;j<58;j++)
+{
+Sleep(15);
+cout<<"\xB2";
+}
+for(j=0;j<36;j++)
+{
+Sleep(20);
+cout<<d[j];
+}
+for(j=0;j<58;j++)
+{
+Sleep(15);
+cout<<"\xB2";
+}
+
+	int number_of_process;
+	cout<<"\n"<<"\xB2\xB2"<<" How many process you want to enter : ";
+	cin>>number_of_process;
+	Processes process[number_of_process];
+	for(int i=0;i<number_of_process;i++)
+	{
+		
+		system("cls");
+		for(j=0;j<48;j++)
+		{
+		cout<<"*";
+		}
+		for(j=0;j<36;j++)
+		{
+		cout<<d[j];
+		}
+		for(j=0;j<48;j++)
+		{
+		cout<<"*";
+		}
+
+		cout<<"\n\n\n\n"<<"\xB2\xB2"<<" Enter the process ID of -"<<numbers[i]<<" process : " ;
+		cin>>process[i].pid;
+		cout<<"\n"<<"\xB2\xB2"<<" Enter the arrival time : ";
+		cin>>process[i].arrival_time;
+		while(process[i].arrival_time==0)                 /*if arrival time =0; DOn't select the process*/
+		{
+			cout<<"\n"<<"\xB2\xB2"<<" Entered process arrival time is wrong. Enter the correct arrival time ";
+			cin>>process[i].arrival_time;
+		}
+		cout<<"\n"<<"\xB2\xB2"<<" Enter the burst time : ";
+		cin>>process[i].burst_time;
+		
+	}
+	system("cls");
+		
+	average_arrival_time(process,number_of_process);
+	return 0;
+}
